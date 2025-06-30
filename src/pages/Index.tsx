@@ -112,11 +112,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-500">
       {/* Header */}
-      <header className="bg-black border-b px-6 py-4">
+      <header className="bg-black border-b px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <img src={logo} alt="logo" className="w-16 h-15" />
-          <div className="flex items-center gap-4">
-            <div className="relative">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <img src={logo} alt="logo" className="w-12 h-12 sm:w-16 sm:h-15" />
+          </div>
+
+          {/* Search and Wallet - Desktop */}
+          <div className="hidden md:flex items-center gap-4 flex-1 justify-end">
+            <div className="relative max-w-xs">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-4 h-4" />
               <Input
                 placeholder="Search here..."
@@ -124,18 +129,6 @@ const Index = () => {
               />
             </div>
 
-            {/* <div className="flex items-center gap-2 text-sm">
-              <span className={!isTestnet ? 'text-green-600 font-medium' : 'text-gray-500'}>Mainnet</span>
-              <button onClick={() => switchNetwork(!isTestnet)} className="p-1">
-                {isTestnet ? (
-                  <ToggleLeft className="w-6 h-6 text-gray-400" />
-                ) : (
-                  <ToggleRight className="w-6 h-6 text-purple-600" />
-                )}
-              </button>
-              <span className={isTestnet ? 'text-orange-600 font-medium' : 'text-gray-500'}>Testnet</span>
-            </div>
-             */}
             {walletAddress && (
               <div className="flex items-center gap-2 bg-green-900 border border-green-700 px-3 py-2 rounded-lg">
                 <Wallet className="w-4 h-4 text-green-400" />
@@ -145,6 +138,29 @@ const Index = () => {
               </div>
             )}
           </div>
+
+          {/* Mobile - Wallet Only */}
+          <div className="flex md:hidden items-center gap-2">
+            {walletAddress && (
+              <div className="flex items-center gap-1 bg-green-900 border border-green-700 px-2 py-1 rounded-lg">
+                <Wallet className="w-3 h-3 text-green-400" />
+                <span className="text-xs font-medium text-green-300">
+                  {walletAddress.slice(0, 4)}...{walletAddress.slice(-2)}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Search Bar */}
+        <div className="md:hidden mt-3 px-2">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-4 h-4" />
+            <Input
+              placeholder="Search here..."
+              className="pl-10 w-full bg-gray-800 border-0 text-white placeholder-gray-300"
+            />
+          </div>
         </div>
       </header>
 
@@ -152,15 +168,14 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Trading Section */}
           <div className="lg:col-span-2">
-            {/* Buy & Sell GTC Section */}
             <Card className="mb-6 overflow-hidden border-2 border-blue-500">
-              <CardContent className="p-8">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
+                  <div className="flex-1 space-y-4 sm:space-y-6">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                       Buy & Sell 100+ DGTEK Instantly
                     </h2>
-                    <p className="text-gray-600 mb-6 max-w-lg">
+                    <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
                       DGTEK (DGTEK) is a decentralized BEP20 token deployed on
                       Binance Smart Chain. Launched with a supply of 1 billion
                       tokens, it enables minting and burning for sustainable
@@ -168,18 +183,26 @@ const Index = () => {
                       and ecosystem rewards, supporting secure transfers,
                       approvals, and ownership management.
                     </p>
-                    <div className="flex gap-4">
-                      <Button size="lg" onClick={() => setActiveTab("BUY")}>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                      <Button
+                        size="lg"
+                        onClick={() => setActiveTab("BUY")}
+                        className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+                      >
                         Buy DGTEK <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
-                      <Button size="lg" onClick={() => setActiveTab("SELL")}>
+                      <Button
+                        size="lg"
+                        onClick={() => setActiveTab("SELL")}
+                        className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+                      >
                         Sell DGTEK <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
                     </div>
                   </div>
-                  <div className="hidden lg:block">
-                    <div className="w-64 h-48 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center">
-                      <div className="text-6xl">📊</div>
+                  <div className="flex justify-center lg:justify-end lg:flex-shrink-0">
+                    <div className="w-48 h-36 sm:w-56 sm:h-40 lg:w-64 lg:h-48 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center">
+                      <div className="text-4xl sm:text-5xl lg:text-6xl">📊</div>
                     </div>
                   </div>
                 </div>
@@ -240,7 +263,6 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* About GTC Token */}
             <Card className="mt-6">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
