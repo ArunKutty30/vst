@@ -110,41 +110,49 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-500">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-black border-b px-4 sm:px-6 py-3 sm:py-4">
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 shadow-sm">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img src={logo} alt="logo" className="w-12 h-12 sm:w-16 sm:h-15" />
+            <img src={logo} alt="logo" className="w-12 h-14 sm:w-16 sm:h-15" />
+          </div>
+
+          {/* Dashboard Title - Center */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+              Dashboard
+            </h1>
           </div>
 
           {/* Search and Wallet - Desktop */}
-          <div className="hidden md:flex items-center gap-4 flex-1 justify-end">
+          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <div className="relative max-w-xs">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
                 placeholder="Search here..."
-                className="pl-10 w-64 bg-gray-800 border-0 text-white placeholder-gray-300"
+                className="pl-10 w-64 bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
             {walletAddress && (
-              <div className="flex items-center gap-2 bg-green-900 border border-green-700 px-3 py-2 rounded-lg">
-                <Wallet className="w-4 h-4 text-green-400" />
-                <span className="text-sm font-medium text-green-300">
+              <div className="flex items-center gap-2 bg-green-50 border border-green-200 px-3 py-2 rounded-lg">
+                <Wallet className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">
                   {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
                 </span>
               </div>
             )}
           </div>
 
-          {/* Mobile - Wallet Only */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* Mobile - Dashboard Title and Wallet */}
+          <div className="flex md:hidden items-center gap-2 flex-1 justify-between">
+            <h1 className="text-lg font-bold text-gray-900 ml-2">Dashboard</h1>
             {walletAddress && (
-              <div className="flex items-center gap-1 bg-green-900 border border-green-700 px-2 py-1 rounded-lg">
-                <Wallet className="w-3 h-3 text-green-400" />
-                <span className="text-xs font-medium text-green-300">
+              <div className="flex items-center gap-1 bg-green-50 border border-green-200 px-2 py-1 rounded-lg">
+                <Wallet className="w-3 h-3 text-green-600" />
+                <span className="text-xs font-medium text-green-700">
                   {walletAddress.slice(0, 4)}...{walletAddress.slice(-2)}
                 </span>
               </div>
@@ -155,10 +163,10 @@ const Index = () => {
         {/* Mobile Search Bar */}
         <div className="md:hidden mt-3 px-2">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               placeholder="Search here..."
-              className="pl-10 w-full bg-gray-800 border-0 text-white placeholder-gray-300"
+              className="pl-10 w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -168,7 +176,7 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Trading Section */}
           <div className="lg:col-span-2">
-            <Card className="mb-6 overflow-hidden border-2 border-blue-500">
+            <Card className="mb-6 overflow-hidden border-2 border-blue-500 bg-blue-50">
               <CardContent className="p-4 sm:p-6 lg:p-8">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
                   <div className="flex-1 space-y-4 sm:space-y-6">
@@ -210,7 +218,7 @@ const Index = () => {
             </Card>
 
             {/* Wallet Overview */}
-            <Card>
+            <Card className="bg-blue-50">
               <CardContent className="p-6">
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -263,7 +271,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="mt-6">
+            <Card className="mt-6 bg-blue-50">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   About DGTEK Token
@@ -286,7 +294,7 @@ const Index = () => {
           {/* Trading Panel */}
           <div className="space-y-6">
             {/* Buy/Sell Toggle */}
-            <Card>
+            <Card className="bg-blue-50">
               <CardContent className="p-6">
                 <Tabs
                   value={activeTab}
@@ -423,7 +431,7 @@ const Index = () => {
             </Card>
 
             {/* Order Book */}
-            <Card>
+            <Card className="bg-blue-50">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -440,6 +448,65 @@ const Index = () => {
                     </div>
                   </TabsContent>
                 </Tabs>
+              </CardContent>
+            </Card>
+
+            {/* Market Chart */}
+            <Card className="bg-blue-50 mt-6">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    DGTEK Market
+                  </h3>
+                  <a
+                    href="https://coinmarketcap.com/currencies/labrador"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                  >
+                    View on CoinMarketCap
+                  </a>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Price Display */}
+                  <div className="bg-white rounded-lg p-4 border border-blue-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm text-gray-600 mb-1">
+                          DGTEK TOKEN (USDG)
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">
+                          $4.93
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-gray-600 mb-1">
+                          24h Change
+                        </div>
+                        <div className="text-lg font-semibold text-green-600">
+                          +0.06%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Market Stats */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white rounded-lg p-3 border border-blue-200 text-center">
+                      <div className="text-xs text-gray-600 mb-1">
+                        24h Volume
+                      </div>
+                      <div className="font-semibold text-gray-900">$191.8K</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 border border-blue-200 text-center">
+                      <div className="text-xs text-gray-600 mb-1">
+                        Market Cap
+                      </div>
+                      <div className="font-semibold text-gray-900">$9.86B</div>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
