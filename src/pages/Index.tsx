@@ -28,6 +28,8 @@ const Index = () => {
     loading,
     usdtBalance,
     dgtekBalance,
+    maxDailySwap,
+    minSwap,
     walletAddress,
     setWalletAddress,
     switchNetwork,
@@ -185,7 +187,7 @@ const Index = () => {
                     </h2>
                     <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
                       DGTEK (DGTEK) is a decentralized BEP20 token deployed on
-                      Binance Smart Chain. Launched with a supply of 1 billion
+                      Binance Smart Chain. Launched with a supply of 10 billion
                       tokens, it enables minting and burning for sustainable
                       supply control. DGTEK is ideal for DeFi projects, staking,
                       and ecosystem rewards, supporting secure transfers,
@@ -278,7 +280,7 @@ const Index = () => {
                 </h3>
                 <p className="text-gray-600 mb-4">
                   DGTEK (DGTEK) is a decentralized utility token built on the
-                  BNB Smart Chain. Initially launched with a fixed supply of 1
+                  BNB Smart Chain. Initially launched with a fixed supply of 10
                   billion tokens, it supports dynamic minting and burning
                   controlled by the owner.
                 </p>
@@ -443,8 +445,13 @@ const Index = () => {
                 <Tabs defaultValue="open" className="w-full">
                   <TabsContent value="open">
                     <div className="text-center text-gray-500 py-8 text-sm">
-                      Maximum Buy Amount: 1,00,000 DGTEK <br />
-                      Maximum Sell Amount: 10,000 DGTEK
+                      Maximum Buy Amount:{" "}
+                      {maxDailySwap
+                        ? parseFloat(maxDailySwap).toLocaleString()
+                        : 0}{" "}
+                      DGTEK <br />
+                      Maximum Sell Amount:{" "}
+                      {minSwap ? parseFloat(minSwap).toLocaleString() : 0} DGTEK
                     </div>
                   </TabsContent>
                 </Tabs>

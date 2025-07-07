@@ -35,6 +35,8 @@ const CONTRACT_ABI = [
   "function sellPrice() view returns (uint256)",
   "function buyFee() view returns (uint256)",
   "function sellFee() view returns (uint256)",
+  "function maxDailySwap() view returns (uint256)",
+  "function minSwap() view returns (uint256)",
   "function buy(uint256 usdtAmount) external",
   "function sell(uint256 tokenAmount) external",
   "function balanceOf(address user) view returns (uint256)",
@@ -56,6 +58,8 @@ export const useWeb3Contract = () => {
   const [loading, setLoading] = useState(false);
   const [usdtBalance, setUsdtBalance] = useState("0");
   const [dgtekBalance, setDgtekBalance] = useState("0");
+  const [maxDailySwap, setMaxDailySwap] = useState("0");
+  const [minSwap, setMinSwap] = useState("0");
   const [walletAddress, setWalletAddress] = useState("");
 
   const switchNetwork = async (testnet: boolean) => {
@@ -128,18 +132,29 @@ export const useWeb3Contract = () => {
         provider
       );
 
-      const [buyPriceWei, sellPriceWei, buyFeeWei, sellFeeWei] =
-        await Promise.all([
-          contract.buyPrice(),
-          contract.sellPrice(),
-          contract.buyFee(),
-          contract.sellFee(),
-        ]);
+      const [
+        buyPriceWei,
+        sellPriceWei,
+        buyFeeWei,
+        sellFeeWei,
+        maxDailySwapWei,
+        minSwapWei,
+      ] = await Promise.all([
+        contract.buyPrice(),
+        contract.sellPrice(),
+        contract.buyFee(),
+        contract.sellFee(),
+        contract.maxDailySwap(),
+        contract.minSwap(),
+      ]);
 
       setBuyPrice(ethers.formatEther(buyPriceWei));
       setSellPrice(ethers.formatEther(sellPriceWei));
       setBuyFee(ethers.formatEther(buyFeeWei));
       setSellFee(ethers.formatEther(sellFeeWei));
+      setMaxDailySwap(ethers.formatEther(maxDailySwapWei).toString());
+      console.log("maxdailyswap", maxDailySwapWei);
+      setMinSwap(ethers.formatEther(minSwapWei).toString());
     } catch (error) {
       console.error("Failed to fetch prices:", error);
       toast.error("Failed to fetch contract prices");
@@ -259,6 +274,8 @@ export const useWeb3Contract = () => {
     loading,
     usdtBalance,
     dgtekBalance,
+    maxDailySwap,
+    minSwap,
     walletAddress,
     setWalletAddress,
     switchNetwork,
