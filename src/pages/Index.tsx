@@ -188,10 +188,11 @@ const Index = () => {
                     <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
                       DGTEK (DGTEK) is a decentralized BEP20 token deployed on
                       Binance Smart Chain. Launched with a supply of 10 billion
-                      tokens, it enables minting and burning for sustainable
-                      supply control. DGTEK is ideal for DeFi projects, staking,
-                      and ecosystem rewards, supporting secure transfers,
-                      approvals, and ownership management.
+                      tokens, circulating supply of 2 Billion tokens, it enables
+                      minting and burning for sustainable supply control. DGTEK
+                      is ideal for DeFi projects, staking, and ecosystem
+                      rewards, supporting secure transfers, approvals, and
+                      ownership management.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <Button
@@ -433,7 +434,7 @@ const Index = () => {
             </Card>
 
             {/* Order Book */}
-            <Card className="bg-blue-50">
+            {/* <Card className="bg-blue-50">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -456,7 +457,7 @@ const Index = () => {
                   </TabsContent>
                 </Tabs>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Market Chart */}
             <Card className="bg-blue-50 mt-6">
