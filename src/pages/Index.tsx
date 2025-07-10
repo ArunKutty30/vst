@@ -476,44 +476,7 @@ const Index = () => {
                   </a>
                 </div>
 
-                <div className="space-y-4">
-                  {/* Price Display */}
-                  <div className="bg-white rounded-lg p-4 border border-blue-200">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-sm text-gray-600 mb-1">
-                          DGTEK TOKEN (USDG)
-                        </div>
-                        <div className="text-2xl font-bold text-gray-900">
-                          $4.93
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm text-gray-600 mb-1">
-                          24h Change
-                        </div>
-                        <div className="text-lg font-semibold text-green-600">
-                          +0.06%
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Market Stats */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white rounded-lg p-3 border border-blue-200 text-center">
-                      <div className="text-xs text-gray-600 mb-1">
-                        24h Volume
-                      </div>
-                      <div className="font-semibold text-gray-900">$191.8K</div>
-                    </div>
-                    <div className="bg-white rounded-lg p-3 border border-blue-200 text-center">
-                      <div className="text-xs text-gray-600 mb-1">
-                        Market Cap
-                      </div>
-                      <div className="font-semibold text-gray-900">$9.86B</div>
-                    </div>
-                  </div>
+                
                 </div>
               </CardContent>
             </Card>
