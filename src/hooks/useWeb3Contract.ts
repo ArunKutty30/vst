@@ -4,15 +4,15 @@ import { toast } from "sonner";
 
 // const CONTRACT_ADDRESS = '0x41faf83A090afB5Aa320a77A190b37590C22f090';
 // const USDT_ADDRESS = '0x7dae6c2c073a9d49C87c3BBA7511730186aA9e0C';
-// const DGTEK_ADDRESS = '0x80F75C11d3b126EDBeB1Cd2f7F21Ca86c74d1C66';
+// const VST_ADDRESS = '0x80F75C11d3b126EDBeB1Cd2f7F21Ca86c74d1C66';
 
 // const CONTRACT_ADDRESS = "0x1881f959A534297eB12b614Db315e22944090025";
 // const USDT_ADDRESS = "0x55d398326f99059fF775485246999027B3197955";
-// const DGTEK_ADDRESS = "0x2d29eE736f71861F3789802a213565279Ff29Ba3";
+// const VST_ADDRESS = "0x2d29eE736f71861F3789802a213565279Ff29Ba3";
 
-const CONTRACT_ADDRESS = "0xf165232675181c7CA3Ae8777DcE83CDDBdc1128f";
+const CONTRACT_ADDRESS = "0x861CEF74a2409FAb403762a4c2Ae21E0A616B4f1";
 const USDT_ADDRESS = "0x55d398326f99059fF775485246999027B3197955";
-const DGTEK_ADDRESS = "0x53507A90dB6346bfee3FA1C53465cf0e1Be37aC5";
+const VST_ADDRESS = "0x53507A90dB6346bfee3FA1C53465cf0e1Be37aC5";
 
 const BSC_TESTNET = {
   chainId: "0x61",
@@ -57,7 +57,7 @@ export const useWeb3Contract = () => {
   const [sellFee, setSellFee] = useState("0");
   const [loading, setLoading] = useState(false);
   const [usdtBalance, setUsdtBalance] = useState("0");
-  const [dgtekBalance, setDgtekBalance] = useState("0");
+  const [VSTBalance, setVSTBalance] = useState("0");
   const [maxDailySwap, setMaxDailySwap] = useState("0");
   const [minSwap, setMinSwap] = useState("0");
   const [walletAddress, setWalletAddress] = useState("");
@@ -103,11 +103,7 @@ export const useWeb3Contract = () => {
         ERC20_ABI,
         provider
       );
-      const gtcContract = new ethers.Contract(
-        DGTEK_ADDRESS,
-        ERC20_ABI,
-        provider
-      );
+      const gtcContract = new ethers.Contract(VST_ADDRESS, ERC20_ABI, provider);
 
       const [usdtBalanceWei, gtcBalanceWei] = await Promise.all([
         usdtContract.balanceOf(userAddress),
@@ -115,7 +111,7 @@ export const useWeb3Contract = () => {
       ]);
 
       setUsdtBalance(ethers.formatEther(usdtBalanceWei));
-      setDgtekBalance(ethers.formatEther(gtcBalanceWei));
+      setVSTBalance(ethers.formatEther(gtcBalanceWei));
     } catch (error) {
       console.error("Failed to fetch balances:", error);
     }
@@ -226,8 +222,8 @@ export const useWeb3Contract = () => {
 
     setLoading(true);
     try {
-      // First approve DGTEK tokens
-      const approved = await approveToken(DGTEK_ADDRESS, tokenAmount);
+      // First approve VST tokens
+      const approved = await approveToken(VST_ADDRESS, tokenAmount);
       if (!approved) {
         setLoading(false);
         return false;
@@ -273,7 +269,7 @@ export const useWeb3Contract = () => {
     sellFee,
     loading,
     usdtBalance,
-    dgtekBalance,
+    VSTBalance,
     maxDailySwap,
     minSwap,
     walletAddress,
