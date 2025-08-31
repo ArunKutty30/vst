@@ -17,7 +17,7 @@ const VST_ADDRESS = "0x342484BAc755a8149E0a74503f8576C32a7aBC49";
 const BSC_TESTNET = {
   chainId: "0x61",
   chainName: "BSC Testnet",
-  nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+  nativeCurrency: { name: "tBNB", symbol: "tBNB", decimals: 18 },
   rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
   blockExplorerUrls: ["https://testnet.bscscan.com/"],
 };
