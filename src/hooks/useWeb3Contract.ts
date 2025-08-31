@@ -173,8 +173,21 @@ export const useWeb3Contract = () => {
         CONTRACT_ADDRESS,
         ethers.parseEther(amount)
       );
-      await tx.wait();
-      toast.message("approved successfully");
+
+      // Wait for the approval transaction to be confirmed
+      const receipt = await tx.wait();
+
+      // Additional verification: check if allowance was actually updated
+      const allowance = await tokenContract.allowance(
+        await signer.getAddress(),
+        CONTRACT_ADDRESS
+      );
+
+      if (allowance < ethers.parseEther(amount)) {
+        throw new Error("Allowance not updated after approval");
+      }
+
+      toast.success("Approval confirmed successfully");
       return true;
     } catch (error) {
       console.error("Approval failed:", error);
