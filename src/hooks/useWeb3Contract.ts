@@ -174,7 +174,7 @@ export const useWeb3Contract = () => {
         ethers.parseEther(amount)
       );
       await tx.wait();
-
+      toast.message("approved successfully");
       return true;
     } catch (error) {
       console.error("Approval failed:", error);
@@ -237,6 +237,7 @@ export const useWeb3Contract = () => {
         signer
       );
 
+      console.log("tk amount", ethers.parseEther(tokenAmount));
       const tx = await contract.sell(ethers.parseEther(tokenAmount));
       await tx.wait();
 
