@@ -174,8 +174,11 @@ export const useWeb3Contract = () => {
         ethers.parseEther(amount)
       );
 
-      // Wait for the approval transaction to be confirmed
-      const receipt = await tx.wait();
+      // Wait for the approval transaction to be confirmed with more blocks
+      const receipt = await tx.wait(3); // Wait for 3 block confirmations
+
+      // Wait a bit more for the blockchain to update the allowance
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Additional verification: check if allowance was actually updated
       const allowance = await tokenContract.allowance(
@@ -184,7 +187,18 @@ export const useWeb3Contract = () => {
       );
 
       if (allowance < ethers.parseEther(amount)) {
-        throw new Error("Allowance not updated after approval");
+        // If allowance is still not updated, wait a bit more and check again
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        const finalAllowance = await tokenContract.allowance(
+          await signer.getAddress(),
+          CONTRACT_ADDRESS
+        );
+
+        if (finalAllowance < ethers.parseEther(amount)) {
+          throw new Error(
+            "Allowance not updated after approval. Please try again."
+          );
+        }
       }
 
       toast.success("Approval confirmed successfully");
@@ -241,10 +255,6 @@ export const useWeb3Contract = () => {
         setLoading(false);
         return false;
       }
-
-      // Wait for a few block confirmations to ensure approval is fully processed
-      toast.info("Waiting for approval confirmation...");
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
