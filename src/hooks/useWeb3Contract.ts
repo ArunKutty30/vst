@@ -242,6 +242,10 @@ export const useWeb3Contract = () => {
         return false;
       }
 
+      // Wait for a few block confirmations to ensure approval is fully processed
+      toast.info("Waiting for approval confirmation...");
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds
+
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(
@@ -249,6 +253,23 @@ export const useWeb3Contract = () => {
         CONTRACT_ABI,
         signer
       );
+
+      // Double-check allowance before selling
+      const tokenContract = new ethers.Contract(
+        VST_ADDRESS,
+        ERC20_ABI,
+        provider
+      );
+      const allowance = await tokenContract.allowance(
+        await signer.getAddress(),
+        CONTRACT_ADDRESS
+      );
+
+      if (allowance < ethers.parseEther(tokenAmount)) {
+        throw new Error(
+          "Insufficient allowance. Please wait for approval to be confirmed."
+        );
+      }
 
       console.log("tk amount", ethers.parseEther(tokenAmount));
       const tx = await contract.sell(ethers.parseEther(tokenAmount));
