@@ -230,6 +230,23 @@ export const useWeb3Contract = () => {
         signer
       );
 
+      // Double-check allowance before buying
+      const tokenContract = new ethers.Contract(
+        USDT_ADDRESS,
+        ERC20_ABI,
+        provider
+      );
+      const allowance = await tokenContract.allowance(
+        await signer.getAddress(),
+        CONTRACT_ADDRESS
+      );
+
+      if (allowance < ethers.parseEther(usdtAmount)) {
+        throw new Error(
+          "Insufficient allowance. Please wait for approval to be confirmed."
+        );
+      }
+
       const tx = await contract.buy(ethers.parseEther(usdtAmount));
       await tx.wait();
 
